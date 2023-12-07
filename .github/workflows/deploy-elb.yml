@@ -1,0 +1,26 @@
+name: Deploy ELB
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - apps/api/**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest commit
+        uses: actions/checkout@v4
+
+      - name: Prepare artifact
+        run: zip -r deploy.zip apps/api/Dockerfile
+
+      - name: Deploy to AWS ElasticBeanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: apps-api
+          environment_name: demo-aws-elb
+          region: ap-southeast-1
+          deployment_package: deploy.zip
