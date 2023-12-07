@@ -1,0 +1,7 @@
+{
+  "watch": ["src", "index.ts"],
+  "exec": "rm -rf build && npm run build && npm run start",
+  "ignore": [".git", "node_modules/**/node_modules"],
+  "verbose": true,
+  "ext": "js,json,ts"
+}
