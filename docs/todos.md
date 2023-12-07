@@ -1,0 +1,8 @@
+- [x] Init deploy with eb CLI
+- [] Setup github api CICD
+- [] Integrate database
+- [] Integrate s3
+- [] Implement file API
+- [] Init deploy ui amplify CLI
+- [] Setup github ui CICD
+- [] Implement UI
