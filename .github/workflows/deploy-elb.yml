@@ -2,8 +2,6 @@ name: Deploy ELB
 on:
   push:
     branches: ["main"]
-    paths:
-      - apps/api/**
 
 jobs:
   deploy:
@@ -20,8 +18,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: api
-          environment_name: api-dev
+          application_name: api # move to env
+          environment_name: api-dev # move to env
           region: ap-southeast-1
           deployment_package: deploy.zip
           version_label: ${{github.run_number}}

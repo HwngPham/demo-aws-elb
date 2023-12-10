@@ -1,6 +1,6 @@
 - [x] Init deploy with eb CLI
 - [x] Setup github api CICD
-- [ ] Test github api CICD
+- [x] Test github api CICD
 - [ ] Integrate database
 - [ ] Integrate s3
 - [ ] Implement file API
