@@ -2,10 +2,10 @@ import * as dynamoose from "dynamoose";
 
 const ddb = new dynamoose.aws.ddb.DynamoDB({
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "",
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "",
+    accessKeyId: "AKIAQWEFF6XE7D5URJHS",
+    secretAccessKey: "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",
   },
-  region: process.env.AWS_REGION,
+  region: "ap-southeast-1",
 });
 
 dynamoose.aws.ddb.set(ddb);
