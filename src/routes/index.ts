@@ -1,3 +1,3 @@
-export * from "./fileUpload";
+export * from "./files";
 export * from "./health";
-export * from "./post";
+export * from "./posts";
