@@ -1,13 +1,13 @@
 import { Schema, model } from "dynamoose";
 
-export const Image = model(
-  "Image",
+export const User = model(
+  "User",
   new Schema(
     {
       id: String,
       name: String,
-      url: String,
-      postId: String,
+      password: String,
+      salt: String,
     },
     {
       saveUnknown: false,

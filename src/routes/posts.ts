@@ -1,9 +1,9 @@
 import { FastifyInstance } from "fastify";
-import { v4 as uuidv4 } from "uuid";
 import Ajv from "ajv";
 
 import { Image, Post } from "../models";
 import { postSchema } from "../schemas";
+import { genId } from "../utils";
 
 export const apiPost = async (app: FastifyInstance) => {
   app.get("/posts/:id", async (req, res) => {
@@ -11,9 +11,7 @@ export const apiPost = async (app: FastifyInstance) => {
     const post = await Post.get(id);
 
     if (!post) {
-      return res
-        .code(404)
-        .send({ message: `Post with id ${id} is not found}` });
+      return res.code(404).send({ message: `Post with id ${id} is not found` });
     }
 
     const images = await Image.scan("postId").eq(post.id).exec();
@@ -36,7 +34,7 @@ export const apiPost = async (app: FastifyInstance) => {
       });
     }
     const post = await Post.create({
-      id: uuidv4(),
+      id: genId(),
       title: payload.title,
       content: payload.content,
     });
@@ -49,9 +47,7 @@ export const apiPost = async (app: FastifyInstance) => {
     const post = await Post.get(id);
 
     if (!post) {
-      return res
-        .code(404)
-        .send({ message: `Post with id ${id} is not found}` });
+      return res.code(404).send({ message: `Post with id ${id} is not found` });
     }
 
     await post.delete();

@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
-import { v4 as uuidv4 } from "uuid";
 import { uploadFile } from "../services";
 import { Image, Post } from "../models";
+import { genId } from "../utils";
 
 export const apiFileUpload = async (app: FastifyInstance) => {
   app.post("/posts/:postId/files", async (req, res) => {
@@ -17,7 +17,7 @@ export const apiFileUpload = async (app: FastifyInstance) => {
     try {
       const { Key, Location } = await uploadFile(file);
       const img = await Image.create({
-        id: uuidv4(),
+        id: genId(),
         name: Key,
         url: Location,
         postId: post.id,

@@ -9,7 +9,7 @@ export const Post = model(
       content: String,
     },
     {
-      saveUnknown: true,
+      saveUnknown: false,
       timestamps: true,
     }
   )
