@@ -1,12 +1,11 @@
 import { FastifyInstance } from "fastify";
 import { v4 as uuidv4 } from "uuid";
 
-import { Post } from "../models";
+import { Image, Post } from "../models";
 
 export const apiPost = async (app: FastifyInstance) => {
   app.get("/posts/:id", async (req, res) => {
-    // @ts-expect-error add id type
-    const { id } = req.params;
+    const { id } = req.params as Record<string, any>;
     const post = await Post.get(id);
 
     if (!post) {
@@ -15,7 +14,9 @@ export const apiPost = async (app: FastifyInstance) => {
         .send({ message: `Post with id ${id} is not found}` });
     }
 
-    return { result: post };
+    const images = await Image.scan("postId").eq(post.id).exec();
+
+    return { result: { ...post, images: images ?? [] } };
   });
 
   app.get("/posts", async () => {
@@ -34,8 +35,7 @@ export const apiPost = async (app: FastifyInstance) => {
   });
 
   app.delete("/posts/:id", async (req, res) => {
-    // @ts-expect-error add id type
-    const { id } = req.params;
+    const { id } = req.params as Record<string, any>;
     const post = await Post.get(id);
 
     if (!post) {

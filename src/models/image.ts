@@ -7,6 +7,7 @@ export const Image = model(
       id: String,
       name: String,
       url: String,
+      postId: String,
     },
     {
       saveUnknown: true,
