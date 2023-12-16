@@ -8,6 +8,9 @@ import { apiFileUpload, apiHealth, apiPost } from "./routes";
 
 export const createServer = (configs: RouteShorthandOptions = {}) => {
   const app: FastifyInstance = Fastify({});
+  app.addHook("onResponse", (_req, res) => {
+    res.header("Content-Type", "application/json");
+  });
 
   app.register(helmet);
   app.register(cors, { origin: true });

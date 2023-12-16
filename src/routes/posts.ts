@@ -1,7 +1,9 @@
 import { FastifyInstance } from "fastify";
 import { v4 as uuidv4 } from "uuid";
+import Ajv from "ajv";
 
 import { Image, Post } from "../models";
+import { postSchema } from "../schemas";
 
 export const apiPost = async (app: FastifyInstance) => {
   app.get("/posts/:id", async (req, res) => {
@@ -25,13 +27,21 @@ export const apiPost = async (app: FastifyInstance) => {
     return { result: posts };
   });
 
-  app.post("/posts", async (req) => {
+  app.post("/posts", async (req, res) => {
+    const ajv = new Ajv();
+    const payload = JSON.parse(req.body as unknown as string);
+    if (!ajv.validate(postSchema, payload)) {
+      return res.status(400).send({
+        detail: ajv.errors,
+      });
+    }
     const post = await Post.create({
       id: uuidv4(),
-      content: new Date().toString(),
+      title: payload.title,
+      content: payload.content,
     });
 
-    return { result: post };
+    return { result: post.toJSON() };
   });
 
   app.delete("/posts/:id", async (req, res) => {
