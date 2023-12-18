@@ -21,5 +21,4 @@ jobs:
           application_name: ${{ vars.AWS_APP_NAME }}
           environment_name: ${{ vars.AWS_ENV_NAME }}
           region: ${{ vars.AWS_REGION }}
-          deployment_package: deploy.zip
           version_label: ${{github.run_number}}
