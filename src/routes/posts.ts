@@ -27,7 +27,7 @@ export const apiPost = async (app: FastifyInstance) => {
 
   app.post("/posts", async (req, res) => {
     const ajv = new Ajv();
-    const payload = JSON.parse(req.body as unknown as string);
+    const payload = req.body as unknown as Record<string, string>;
     if (!ajv.validate(postSchema, payload)) {
       return res.status(400).send({
         detail: ajv.errors,
