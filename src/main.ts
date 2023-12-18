@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import Fastify, { FastifyInstance, RouteShorthandOptions } from "fastify";
 import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";

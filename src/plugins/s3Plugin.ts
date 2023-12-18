@@ -9,7 +9,7 @@ export let s3Client: S3Client;
 
 export const s3Plugin = fastifyPlugin((_fastifyInstance, _opts, done) => {
   s3Client = new S3Client({
-    region: process.env.AWS_REGION ?? "",
+    region: process.env.AWS_REGION ?? "ap-southeast-1",
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "",
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "",
