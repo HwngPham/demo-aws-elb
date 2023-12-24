@@ -9,7 +9,9 @@ import { dbPlugin, s3Plugin } from "./plugins";
 import { apiFileUpload, apiHealth, apiPost } from "./routes";
 
 export const createServer = (configs: RouteShorthandOptions = {}) => {
-  const app: FastifyInstance = Fastify({});
+  const app: FastifyInstance = Fastify({
+    logger: true,
+  });
   app.addHook("onResponse", (_req, res) => {
     res.header("Content-Type", "application/json");
   });

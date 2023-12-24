@@ -57,6 +57,6 @@ export const apiPost = async (app: FastifyInstance) => {
     }
 
     await post.delete();
-    return { result: `Post with id=${id} is deleted` };
+    return { result: { id } };
   });
 };
