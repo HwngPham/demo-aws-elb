@@ -21,8 +21,14 @@ export const apiPost = async (app: FastifyInstance) => {
 
   app.get("/posts", async () => {
     const posts = await Post.scan().exec();
+    const images = await Image.scan().exec();
 
-    return { result: posts };
+    return {
+      result: posts.map((post) => ({
+        ...post,
+        images: images.filter((image) => image.postId === post.id),
+      })),
+    };
   });
 
   app.post("/posts", async (req, res) => {
