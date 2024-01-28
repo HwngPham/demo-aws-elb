@@ -1,4 +1,4 @@
-import * as dynamoose from "dynamoose";
+import dynamoose from "dynamoose";
 import { fastifyPlugin } from "fastify-plugin";
 
 export const dbPlugin = fastifyPlugin((_fastifyInstance, _opts, done) => {

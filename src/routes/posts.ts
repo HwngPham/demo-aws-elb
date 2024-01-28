@@ -10,9 +10,8 @@ export const apiPost = async (app: FastifyInstance) => {
     const { id } = req.params as Record<string, any>;
     const post = await Post.get(id);
 
-    if (!post) {
+    if (!post)
       return res.code(404).send({ message: `Post with id ${id} is not found` });
-    }
 
     const images = await Image.scan("postId").eq(post.id).exec();
 
@@ -34,11 +33,13 @@ export const apiPost = async (app: FastifyInstance) => {
   app.post("/posts", async (req, res) => {
     const ajv = new Ajv();
     const payload = req.body as unknown as Record<string, string>;
+
     if (!ajv.validate(postSchema, payload)) {
       return res.status(400).send({
         detail: ajv.errors,
       });
     }
+
     const post = await Post.create({
       id: genId(),
       title: payload.title,
@@ -48,13 +49,32 @@ export const apiPost = async (app: FastifyInstance) => {
     return { result: post.toJSON() };
   });
 
+  app.put("/posts/:id", async (req, res) => {
+    const { id } = req.params as Record<string, any>;
+    const post = await Post.get(id);
+    if (!post)
+      return res.code(404).send({ message: `Post with id ${id} is not found` });
+
+    const ajv = new Ajv();
+    const payload = req.body as unknown as Record<string, string>;
+    if (!ajv.validate(postSchema, payload)) {
+      return res.status(400).send({
+        detail: ajv.errors,
+      });
+    }
+
+    Object.assign(post, payload);
+    post.save();
+
+    return { result: post.toJSON() };
+  });
+
   app.delete("/posts/:id", async (req, res) => {
     const { id } = req.params as Record<string, any>;
     const post = await Post.get(id);
 
-    if (!post) {
+    if (!post)
       return res.code(404).send({ message: `Post with id ${id} is not found` });
-    }
 
     await post.delete();
     return { result: { id } };

@@ -4,7 +4,7 @@ import { createServer } from "./src/main";
 
 const server = createServer();
 const port = process.env.PORT ? Number(process.env.PORT) : 8000;
-const host = process.env.HOST ?? "0.0.0.0";
+const host = process.env.HOST ?? "localhost";
 
 console.log(port, host);
 server.listen({ port, host }, () => {
