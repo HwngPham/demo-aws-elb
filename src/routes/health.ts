@@ -7,5 +7,6 @@ export const apiHealth = async (app: FastifyInstance) => {
     event: req?.awsLambda?.event,
     // @ts-expect-error un-typed inject
     context: req?.awsLambda?.context,
+    lastDeployment: new Date().toUTCString(),
   }));
 };

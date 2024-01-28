@@ -1,9 +1,15 @@
 service: api
 frameworkVersion: '3'
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs20.x
+  region: ap-southeast-1
+  environment:
+    KEY_ID: ${env:KEY_ID}
+    ACCESS_KEY: ${env:ACCESS_KEY}
 
 functions:
   api:
@@ -12,3 +18,17 @@ functions:
       - httpApi:
           path: /
           method: get
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!src/**'
+    - '!notes/**'
+    - '!Dockerfile'
+    - '!makefile'
+    - '!package**'
+    - '!**.ts'
+    - '!nodemon.json'
+    - '!README.md'
+    - '!tsconfig.json'
+    - 'build'
