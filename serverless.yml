@@ -10,6 +10,8 @@ provider:
   environment:
     KEY_ID: ${env:KEY_ID}
     ACCESS_KEY: ${env:ACCESS_KEY}
+    REGION: ${env:REGION}
+    BUCKET: ${env:BUCKET}
 
 functions:
   api:

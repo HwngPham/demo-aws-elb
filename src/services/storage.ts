@@ -5,7 +5,7 @@ export const uploadFile = async (file: any) => {
   return new Upload({
     client: s3Client,
     params: {
-      Bucket: process.env.AWS_S3_BUCKET,
+      Bucket: process.env.BUCKET,
       Key: file.filename,
       Body: file.file,
     },
