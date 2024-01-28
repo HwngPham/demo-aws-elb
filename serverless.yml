@@ -17,9 +17,7 @@ functions:
   api:
     handler: build/index.handler
     events:
-      - httpApi:
-          path: /
-          method: get
+      - httpApi: '*'
 
 package:
   patterns:
